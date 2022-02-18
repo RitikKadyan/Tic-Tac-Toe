@@ -21,12 +21,53 @@ class Sudoku:  # This is the sudoku class
                 print('━━━━━━━━━')
 
     # This method will get called after each turn and check for a winner
-    def check_winner(self):
-        pass
+    def check_winner(self, player):
+        is_winner = None
+
+        # Checks the rows for winner
+        for i in range(len(self.board)):
+            is_winner = True
+            for j in range(len(self.board)):
+                if self.board[i][j] != player:
+                    is_winner = False
+                    break
+            if is_winner:
+                return is_winner
+
+        # Check the columns for winner
+        for i in range(len(self.board)):
+            is_winner = True
+            for j in range(len(self.board)):
+                if self.board[j][j] != player:
+                    is_winner = False
+                    break
+            if is_winner:
+                return is_winner
+
+        # Checks diagonals going top left to bottom right
+        for i in range(len(self.board)):
+            is_winner = True
+            if self.board[i][i] != player:
+                is_winner = False
+                break
+
+        if is_winner:
+            return is_winner
+
+        # Checks diagonals going top right to bottom left
+        is_winner = True
+        for i in reversed(range(len(self.board))):
+            if self.board[i][i] != player:
+                is_winner = False
+                break
+
+        if is_winner:
+            return is_winner
+        return False
 
     # This method will assign X or O to a spot on the board
-    def assign_spot(self, i, j):
-        pass
+    def assign_spot(self, i, j, val):
+        self.board[i][j] = val
 
     # This method will announce the winner
     def announce_winner(self):
